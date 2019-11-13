@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Informasi Rumah Sakit</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/assets/main.css' th:href="@{/assets/main.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <!--Header-->
+    <div th:replace="fragment :: header"></div>
+
+    <!--Navbar-->
+    <div th:replace="fragment :: navbar"></div>
+
+    <!--Main Page-->
+    <div id="main-page" class="container-fluid d-flex align-items-center text-center">
+        <!--Content-->
+        <div id="main" class="col d-flex align-items-center">
+            <div id="includedContent" class="container fill">
+               <h1>WELCOME!</h1>
+            </div>
+        </div>
+    </div>
+    
+    <!--Footer-->
+    <div th:replace="fragment :: footer"></div>
+</body>
+</html>

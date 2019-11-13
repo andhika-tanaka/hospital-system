@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Medicine</title>
+</head>
+<body>
+<form action="#" th:action="@{/registrations/add}" th:object="${registration}" method="post">
+
+    <label for="number">Number</label>
+    <input type="number" th:field="*{number}" id="number" placeholder="Your Number">
+    <span th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></span>
+
+    <select name="doctors">
+        <option th:each="d : ${doctors}" th:value="${d.id}" th:text="${d.firstName}" ></option>
+    </select>
+
+    <select name="patients">
+        <option th:each="p : ${patients}" th:value="${p.id}" th:text="${p.firstName}"></option>
+    </select>
+
+    <label for="checkupDate">Name</label>
+    <input type="date" th:field="*{checkupDate}" id="checkupDate">
+
+    <input type="submit" value="SAVE">
+</form>
+</body>
+</html>

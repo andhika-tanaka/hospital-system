@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>QTY</th>
+        <th>Price</th>
+    </tr>
+
+    <tr th:each="m : ${medicines}">
+
+        <td th:text="${m.name}">Name</td>
+        <td th:text="${m.qty}">Student mail</td>
+        <td th:text="${m.price}">Student address</td>
+        <td>
+            <a th:href="@{/medicines/edit/{id}(id=${m.id})}">EDIT</a>
+            <a th:href="@{/medicines/delete/{id}(id=${m.id})}">DELETE</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,45 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    text-align: center;
+    align-content: center;
+}
+
+body {
+    min-height: 100%;
+}
+
+#main-page{
+    min-height: 60%;
+    padding-bottom: 50px;
+}
+
+#footer{
+    position: relative;
+    bottom: 0;
+    padding-top: 10px;
+    padding-bottom:1px;
+    height: 50px;
+    width: 100%;
+    background-color: lightblue;
+    color: white;
+    text-align: center;
+    align-content: center;
+}
+
+.card{
+    padding: 15px;
+    margin: 10px;
+}
+
+#header{
+    background-color: lightblue;
+    color: white;
+}
+
+.content-border{
+    margin: 20px;
+    height: 50px;
+    text-align: center;
+}

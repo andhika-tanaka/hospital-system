@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Informasi Rumah Sakit</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/assets/main.css'
+          th:href="@{/assets/main.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+</head>
+<body>
+    <!--Header-->
+    <div id="header" class="jumbotron text-center" th:fragment="header">
+        <h1>SISTEM INFORMASI RUMAH SAKIT</h1>
+    </div>
+
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-lightblue" th:fragment="navbar">
+        <a class="navbar-brand">Home</a>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/positions/}">POSISI</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/users/}">USER</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">POLI</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/schedules/}">JADWAL</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/registrations/}">REGISTRASI</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--Footer-->
+    <div id="footer" class="page-footer text-center" th:fragment="footer">
+        <p>&copy;2019 - Andhika Tanaka </p>
+    </div>
+</body>
+</html>

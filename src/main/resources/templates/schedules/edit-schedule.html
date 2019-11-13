@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Medicine</title>
+</head>
+<body>
+<form action="#" th:action="@{/medicines/edit/{id}(id=${medicine.id})}" th:object="${medicine}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <label for="qty">QTY</label>
+    <input type="number" th:field="*{qty}" id="qty" placeholder="Insert Quantity">
+    <span th:if="${#fields.hasErrors('qty')}" th:errors="*{qty}"></span>
+    <label for="qty">Price</label>
+    <input type="number" th:field="*{price}" id="price" placeholder="Insert Price">
+    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+    <input type="submit" value="SAVE">
+</form>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Medicine</title>
+</head>
+<body>
+<form action="#" th:action="@{/schedules/add}" th:object="${schedule}" method="post">
+    <select name="users">
+        <option th:each="s : ${users}" th:value="${s.id}" th:text="${s.firstName}" ></option>
+    </select>
+
+    <select name="days">
+        <option th:each="d : ${T(com.internship.hospital.model.Schedule.days).values()}" th:value="${d}" th:text="${d.displayValue}" ></option>
+    </select>
+
+    <label for="startHour">Name</label>
+    <input type="time" th:field="*{startHour}" id="startHour">
+
+    <label for="finishHour">Name</label>
+    <input type="time" th:field="*{finishHour}" id="finishHour">
+
+    <label for="fee">Fee</label>
+    <input type="number" th:field="*{fee}" id="fee" placeholder="Insert Fee">
+    <span th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></span>
+
+    <input type="submit" value="SAVE">
+</form>
+</body>
+</html>

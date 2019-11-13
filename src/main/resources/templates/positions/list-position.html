@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Informasi Rumah Sakit</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/assets/main.css'
+          th:href="@{/assets/main.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!--Header-->
+<div id="header" th:replace="fragment :: header"></div>
+
+<!--Navbar-->
+<div th:replace="fragment :: navbar"></div>
+
+<div id="main-page" class="container-fluid text-center">
+    <!--Content-->
+    <div id="main" class="col d-flex align-items-center">
+        <div id="includedContent" class="container fill">
+            <div class="row text-center content-border">
+                <div class="col-sm-6">
+                    <button type="button" id="btn-add" class="btn btn-primary" data-toggle="modal"
+                            data-target="#addModal"><i
+                            class="fa fa-plus"></i>&nbsp;TAMBAH
+                    </button>
+                </div>
+                <div class="col-sm-6">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <th class="row text-center table-responsive">
+                <table class="table">
+                    <thead>
+                    <th scope="col">Posisi</th>
+                    <th scope="col">Detail Posisi</th>
+                    <th scope="col">Aksi</th>
+                    </thead>
+
+                    <tr scope="row" th:each="p : ${positions}">
+                        <td th:text="${#strings.capitalize(p.title)}">Posisi</td>
+                        <td th:text="${p.name}">Detail Posisi</td>
+                        <td>
+                            <a type="button" class="btn btn-primary" th:href="@{/positions/edit/{id}(id=${p.id})}"><i
+                                    class="fa fa-edit"></i>&nbsp;EDIT</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal"
+                                    th:attr="data-target='#deleteModal'+${p.id}"><i class="fa fa-trash"></i>&nbsp;HAPUS
+                            </button>
+                            <!--Delete Form-->
+                            <div class="modal modal-warning fade in" th:id="deleteModal+${p.id}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!--Modal Header-->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title w-100">Hapus Posisi</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!--Modal Body-->
+                                        <div class="modal-body">
+                                            <h3>Are you sure want to delete this user?</h3>
+                                        </div>
+
+                                        <!--Modal Footer-->
+                                        <div class="modal-footer">
+                                            <a type="button" class="btn btn-primary"
+                                               th:href="@{/positions/delete/{id}(id=${p.id})}"><i
+                                                    class="fa fa-check"></i>&nbsp;Yes</a>
+                                            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">
+                                                <i
+                                                        class="fa fa-times"></i>&nbsp;Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </th>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<div id="footer" th:replace="fragment :: footer"></div>
+
+
+<!-- Form Add -->
+<div class="modal" id="addModal"></div>
+
+<script>
+    $('#btn-add').click(function () {
+        $("#addModal").load("/positions/add");
+    });
+</script>
+</body>
+</html>
