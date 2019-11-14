@@ -1,30 +1,71 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Medicine</title>
-</head>
-<body>
 <form action="#" th:action="@{/schedules/add}" th:object="${schedule}" method="post">
-    <select name="users">
-        <option th:each="s : ${users}" th:value="${s.id}" th:text="${s.firstName}" ></option>
-    </select>
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-    <select name="days">
-        <option th:each="d : ${T(com.internship.hospital.model.Schedule.days).values()}" th:value="${d}" th:text="${d.displayValue}" ></option>
-    </select>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title w-100">Form Tambah Klinik</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-    <label for="startHour">Name</label>
-    <input type="time" th:field="*{startHour}" id="startHour">
+            <!-- Modal body -->
+            <div class="modal-body text-left">
 
-    <label for="finishHour">Name</label>
-    <input type="time" th:field="*{finishHour}" id="finishHour">
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label>User<br>
+                            <select name="users" class="form-control">
+                                <option th:each="s : ${users}" th:value="${s.id}"
+                                        th:text="${s.firstName} + ' ' + ${s.lastName}"></option>
+                            </select>
+                        </label>
+                    </div>
 
-    <label for="fee">Fee</label>
-    <input type="number" th:field="*{fee}" id="fee" placeholder="Insert Fee">
-    <span th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></span>
+                    <div class="form-group col-sm-6">
+                        <label>Klinik<br>
+                            <select name="clinics" class="form-control">
+                                <option th:each="c : ${clinics}" th:value="${c.id}"
+                                        th:text="${c.number} + ' - ' + ${c.name}"></option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
 
-    <input type="submit" value="SAVE">
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label>Days<br>
+                            <select name="days" class="form-control">
+                                <option th:each="d : ${T(com.internship.hospitalsystem.model.Schedule.days).values()}"
+                                        th:value="${d}" th:text="${d.displayValue}"></option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="startHour">Mulai Praktek</label>
+                        <input type="time" th:field="*{startHour}" id="startHour" class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label for="finishHour">Selesai Praktek</label>
+                        <input type="time" th:field="*{finishHour}" id="finishHour" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fee">Biaya</label>
+                    <input type="number" th:field="*{fee}" id="fee" placeholder="Insert Fee" class="form-control">
+                    <span th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></span>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>
-</body>
-</html>

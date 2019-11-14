@@ -1,7 +1,9 @@
 package com.internship.hospitalsystem.controller;
 
+import com.internship.hospitalsystem.model.Clinic;
 import com.internship.hospitalsystem.model.Schedule;
 import com.internship.hospitalsystem.model.User;
+import com.internship.hospitalsystem.repository.ClinicRepository;
 import com.internship.hospitalsystem.repository.ScheduleRepository;
 import com.internship.hospitalsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -24,9 +25,12 @@ public class ScheduleController {
     @Autowired
     ScheduleRepository scheduleRepository;
 
+    @Autowired
+    ClinicRepository clinicRepository;
+
     @GetMapping
     public ModelAndView list(){
-        ModelAndView mav = new ModelAndView("users/list-user");
+        ModelAndView mav = new ModelAndView("schedules/list-schedule");
         List<Schedule> schedules = scheduleRepository.findAll();
         mav.addObject("schedules", schedules);
         return mav;
@@ -36,22 +40,21 @@ public class ScheduleController {
     public String showUserForm(Model model)
     {
         List<User> users = userRepository.findStaffs();
+        List<Clinic> clinics = clinicRepository.findAll();
         Schedule schedule = new Schedule();
-        model.addAttribute(schedule);
         model.addAttribute("users", users);
+        model.addAttribute("clinics", clinics);
+        model.addAttribute(schedule);
         return "schedules/add-schedule";
     }
 
     @PostMapping("/add")
-    public String saveSchedule(Schedule schedule,User user, BindingResult bindingResult) {
+    public String saveSchedule(Schedule schedule, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "schedules/add-schedule";
         }
-
-        schedule.setCreated_at(LocalDateTime.now());
         scheduleRepository.save(schedule);
-        userRepository.save(user);
-        return "index";
+        return "redirect:/schedules";
     }
 
     @GetMapping("/edit/{id}")
@@ -59,26 +62,26 @@ public class ScheduleController {
         Schedule schedule = scheduleRepository.findById(id).
                 orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         List<User> users = userRepository.findStaffs();
+        List<Clinic> clinics = clinicRepository.findAll();
         model.addAttribute(schedule);
         model.addAttribute("users", users);
+        model.addAttribute("clinics", clinics);
         return "schedules/edit-schedule";
     }
 
     @PostMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") Long id, User user, BindingResult bindingResult, Model model){
+    public String editUser(@PathVariable("id") Long id, Schedule schedule, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()) {
-            user.setId(id);
-            return "users/edit-medicine";
+            schedule.setId(id);
+            return "redirect:/schedules";
         }
-        user.setUpdated_at(LocalDateTime.now());
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
-        return "index";
+        scheduleRepository.save(schedule);
+        return "redirect:/schedules";
     }
 
-    @RequestMapping(value = "/delete")
-    public String deleteSchedule(@RequestParam(name = "id") Long id){
+    @GetMapping(value = "/delete/{id}")
+    public String deleteSchedule(@PathVariable("id") Long id){
         scheduleRepository.deleteById(id);
-        return "index";
+        return "redirect:/schedules";
     }
 }

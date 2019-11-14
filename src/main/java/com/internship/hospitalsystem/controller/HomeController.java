@@ -6,15 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/")
 public class HomeController {
 
+    @RequestMapping("/")
     public String home(){
         return "index";
-    }
-
-    @GetMapping(value = "admin")
-    public ModelAndView admin(){
-        return new ModelAndView("index");
     }
 }

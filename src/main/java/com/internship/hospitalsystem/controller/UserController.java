@@ -47,7 +47,6 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "users/add-user";
         }
-        user.setCreated_at(LocalDateTime.now());
         userRepository.save(user);
         return "redirect:/users";
     }
@@ -63,14 +62,12 @@ public class UserController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") Long id, User user, BindingResult bindingResult, Model model){
+    public String editUser(@PathVariable("id") Long id, User user, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             user.setId(id);
             return "users/edit-user";
         }
-        user.setUpdated_at(LocalDateTime.now());
         userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
         return "redirect:/users";
     }
 

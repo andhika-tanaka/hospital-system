@@ -2,21 +2,104 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Edit Medicine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Informasi Rumah Sakit</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/assets/main.css'
+          th:href="@{/assets/main.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form action="#" th:action="@{/medicines/edit/{id}(id=${medicine.id})}" th:object="${medicine}" method="post">
-    <input type="hidden" th:field="*{id}"/>
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
-    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    <label for="qty">QTY</label>
-    <input type="number" th:field="*{qty}" id="qty" placeholder="Insert Quantity">
-    <span th:if="${#fields.hasErrors('qty')}" th:errors="*{qty}"></span>
-    <label for="qty">Price</label>
-    <input type="number" th:field="*{price}" id="price" placeholder="Insert Price">
-    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-    <input type="submit" value="SAVE">
-</form>
+<!--Header-->
+<div th:replace="fragment :: header"></div>
+
+<!--Navbar-->
+<div th:replace="fragment :: navbar"></div>
+
+<div id="main-page" class="container-fluid d-flex align-items-center text-center">
+    <!--Content-->
+    <div class="col-sm-4"></div>
+    <div id="main" class="col-sm-4 d-flex align-items-center text-center">
+        <div id="includedContent" class="container fill">
+            <form action="#" th:action="@{/schedules/edit/{id}(id=${schedule.id})}" th:object="${schedule}"
+                  method="post">
+                <div class="card">
+                    <div class="card-body">
+
+                        <!-- Modal Header -->
+                        <div class="card-title">
+                            <h4 class="modal-title w-100 text-center">Form Ubah Data Posisi</h4>
+                        </div>
+
+                        <!-- Card body -->
+                        <div class="card-text">
+                            <div class="text-left">
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label>User<br>
+                                            <select name="users" class="form-control">
+                                                <option th:each="s : ${users}" th:value="${s.id}" th:text="${s.firstName} + ' ' + ${s.lastName}"></option>
+                                            </select>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label>Klinik<br>
+                                            <select name="clinics" class="form-control">
+                                                <option th:each="c : ${clinics}" th:value="${c.id}"
+                                                        th:text="${c.number} + ' - ' + ${c.name}"></option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label>Days<br>
+                                            <select name="days" class="form-control">
+                                                <option th:each="d : ${T(com.internship.hospitalsystem.model.Schedule.days).values()}"
+                                                        th:value="${d}" th:text="${d.displayValue}"></option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-sm-6">
+                                        <label for="startHour">Mulai Praktek</label>
+                                        <input type="time" th:field="*{startHour}" id="startHour" class="form-control">
+                                    </div>
+
+                                    <div class="form-group col-sm-6">
+                                        <label for="finishHour">Selesai Praktek</label>
+                                        <input type="time" th:field="*{finishHour}" id="finishHour" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fee">Biaya</label>
+                                    <input type="number" th:field="*{fee}" id="fee" placeholder="Insert Fee" class="form-control">
+                                    <span th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a class="btn btn-danger" th:href="@{/positions}">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<div th:replace="fragment :: footer"></div>
 </body>
 </html>

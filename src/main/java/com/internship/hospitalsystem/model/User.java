@@ -31,10 +31,6 @@ public class User {
 
     private String phone2;
 
-    private LocalDateTime created_at;
-
-    private LocalDateTime updated_at;
-
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE

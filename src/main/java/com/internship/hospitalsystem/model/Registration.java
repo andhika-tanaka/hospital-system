@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 public class Registration {
-    public static enum status{
+    /**public static enum status{
         BOOK("Book"),
         VISIT("Visit"),
         CHECKED("Doctor checking"),
@@ -24,7 +24,7 @@ public class Registration {
         public String getDisplayValue() {
             return displayValue;
         }
-    }
+    }**/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +39,4 @@ public class Registration {
 
     @ManyToOne
     private User patients;
-
-    private LocalDateTime createdAt;
-
-    private status status;
 }

@@ -1,10 +1,10 @@
-<form action="#" th:action="@{/positions/add}" th:object="${position}" method="post">
+<form action="#" th:action="@{/clinics/add}" th:object="${clinic}" method="post">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title w-100">Form Tambah Posisi</h4>
+                <h4 class="modal-title w-100">Form Tambah Klinik</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
         
@@ -13,17 +13,9 @@
   
                 <!--Radio Posisi-->
                 <div class="form-group">
-                    <label>Posisi<br>
-                        <label class="form-check-label">
-                            <input type="radio" name="title" th:value="staff"> Staff
-                        </label>
-                        <label class="form-check-label">
-                            <input type="radio" name="title" th:value="doctor"> Dokter
-                        </label>
-                        <label  class="form-check-label">
-                            <input type="radio" name="title" th:value="patient"> Pasien
-                        </label>
-                    </label>
+                    <label for="number">Nomor Ruangan</label>
+                    <input type="text" id="number" class="form-control" placeholder="Nomor Ruangan" th:field="*{number}">
+                    <span th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></span>
                 </div>
 
                 <!--Textbox Nama-->

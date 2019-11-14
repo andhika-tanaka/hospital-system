@@ -28,7 +28,7 @@ public class RegistrationController {
     public ModelAndView list(){
         ModelAndView mav = new ModelAndView("registrations/list-registration");
         List<Registration> registrations = registrationRepository.findAll();
-        mav.addObject("positions", registrations);
+        mav.addObject("registrations", registrations);
         return mav;
     }
 
@@ -45,20 +45,16 @@ public class RegistrationController {
     }
 
     @PostMapping("/add")
-    public String saveRegistration(Registration registration,User doctor, User patient, BindingResult bindingResult) {
+    public String saveRegistration(Registration registration, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "registrations/add-registration";
         }
-        registration.setCreatedAt(LocalDateTime.now());
-        registration.setStatus(Registration.status.VISIT);
         registrationRepository.save(registration);
-        userRepository.save(doctor);
-        userRepository.save(patient);
         return "redirect:/registrations";
     }
 
-    @RequestMapping(value = "/delete")
-    public String deleteRegistration(@RequestParam(name = "id") Long id){
+    @GetMapping("/delete/{id}")
+    public String deleteRegistration(@PathVariable("id") Long id){
         registrationRepository.deleteById(id);
         return "redirect:/registrations";
     }

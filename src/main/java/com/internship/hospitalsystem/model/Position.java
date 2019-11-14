@@ -1,12 +1,11 @@
 package com.internship.hospitalsystem.model;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
@@ -18,8 +17,4 @@ public class Position {
     private String title;
 
     private String name;
-
-    private LocalDateTime created_at;
-
-    private LocalDateTime updated_at;
 }

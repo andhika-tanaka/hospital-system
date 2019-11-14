@@ -37,7 +37,6 @@ public class PositionController {
         if (bindingResult.hasErrors()) {
             return "positions/add-position";
         }
-        position.setCreated_at(LocalDateTime.now());
         positionRepository.save(position);
         model.addAttribute("positions", positionRepository.findAll());
         return "redirect:/positions";
@@ -52,14 +51,12 @@ public class PositionController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editMedicine(@PathVariable("id") Long id, Position position, BindingResult bindingResult, Model model){
+    public String editMedicine(@PathVariable("id") Long id, Position position, BindingResult bindingResult){
         if (bindingResult.hasErrors()) {
             position.setId(id);
             return "positions/edit-position";
         }
-        position.setUpdated_at(LocalDateTime.now());
         positionRepository.save(position);
-        model.addAttribute("positions", positionRepository.findAll());
         return "redirect:/positions";
     }
 

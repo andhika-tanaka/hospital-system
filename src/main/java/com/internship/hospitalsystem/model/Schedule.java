@@ -42,10 +42,9 @@ public class Schedule {
 
     private Integer fee;
 
-    private LocalDateTime created_at;
-
-    private LocalDateTime updated_at;
-
     @ManyToOne
     private User users;
+
+    @ManyToOne
+    private Clinic clinics;
 }
