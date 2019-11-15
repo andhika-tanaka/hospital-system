@@ -27,21 +27,22 @@ public class RegistrationController {
     @GetMapping
     public ModelAndView list(){
         ModelAndView mav = new ModelAndView("registrations/list-registration");
+        /*Registration List*/
         List<Registration> registrations = registrationRepository.findAll();
         mav.addObject("registrations", registrations);
-        return mav;
-    }
 
-    @GetMapping("/add")
-    public String showUserRegistrationForm(Model model)
-    {
+        /*Patient List For Combo Box*/
         List<User> patients = userRepository.findPatients();
+        mav.addObject("patients", patients);
+
+        /*Doctor List For Combo Box*/
         List<User> doctors = userRepository.findDoctors();
         Registration registration = new Registration();
-        model.addAttribute(registration);
-        model.addAttribute("patients", patients);
-        model.addAttribute("doctors", doctors);
-        return "registrations/add-registration";
+
+        /*New Object to Add New Data to Table*/
+        mav.addObject(registration);
+        mav.addObject("doctors", doctors);
+        return mav;
     }
 
     @PostMapping("/add")
