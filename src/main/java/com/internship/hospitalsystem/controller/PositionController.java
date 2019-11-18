@@ -19,7 +19,7 @@ public class PositionController {
     @Autowired
     PositionRepository positionRepository;
 
-    @RequestMapping
+    @GetMapping
     public ModelAndView list(@RequestParam(name = "keyword", required = false) String keyword){
         ModelAndView mav = new ModelAndView("positions/list-position");
         if (keyword == null){
