@@ -19,11 +19,16 @@ public class PositionController {
     @Autowired
     PositionRepository positionRepository;
 
-    @GetMapping
-    public ModelAndView list(){
+    @RequestMapping
+    public ModelAndView list(@RequestParam(name = "keyword", required = false) String keyword){
         ModelAndView mav = new ModelAndView("positions/list-position");
-        List<Position> positions = positionRepository.findAll();
-        mav.addObject("positions", positions);
+        if (keyword == null){
+            List<Position> positions = positionRepository.findAll();
+            mav.addObject("positions", positions);
+        } else {
+            List<Position> positions = positionRepository.findPosition(keyword);
+            mav.addObject("positions", positions);
+        }
         return mav;
     }
 
