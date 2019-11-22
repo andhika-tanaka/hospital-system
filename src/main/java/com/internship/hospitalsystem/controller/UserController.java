@@ -25,11 +25,24 @@ public class UserController {
     PositionRepository positionRepository;
 
     @GetMapping
-    public ModelAndView list(){
-        ModelAndView mav = new ModelAndView("users/list-user");
+    public String index(Model model){
         List<User> users = userRepository.findAll();
-        mav.addObject("users", users);
-        return mav;
+        model.addAttribute("users", users);
+        return "users/index";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        List<User> users = userRepository.findAll();
+        model.addAttribute("users", users);
+        return "users/list-user :: userList";
+    }
+
+    @GetMapping("/list/{keyword}")
+    public String list(@PathVariable("keyword") String keywords, Model model){
+        List<User> users = userRepository.findUser(keywords);
+        model.addAttribute("users", users);
+        return "users/list-user :: userList";
     }
 
     @GetMapping("/add")

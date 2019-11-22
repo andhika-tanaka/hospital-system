@@ -6,6 +6,7 @@ import com.internship.hospitalsystem.repository.RegistrationRepository;
 import com.internship.hospitalsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,33 +24,67 @@ public class RegistrationController {
     UserRepository userRepository;
 
     @GetMapping
-    public ModelAndView list(){
-        ModelAndView mav = new ModelAndView("registrations/list-registration");
-        /*Registration List*/
-        List<Registration> registrations = registrationRepository.findAll();
-        mav.addObject("registrations", registrations);
+    public String index(Model model){
+        /*New Object to Add New Data to Table*/
+        Registration registration = new Registration();
+        model.addAttribute(registration);
 
         /*Patient List For Combo Box*/
         List<User> patients = userRepository.findPatients();
-        mav.addObject("patients", patients);
+        model.addAttribute("patients", patients);
 
         /*Doctor List For Combo Box*/
         List<User> doctors = userRepository.findDoctors();
-        Registration registration = new Registration();
+        model.addAttribute("doctors", doctors);
 
-        /*New Object to Add New Data to Table*/
-        mav.addObject(registration);
-        mav.addObject("doctors", doctors);
-        return mav;
+        /*Registration List*/
+        List<Registration> registrations = registrationRepository.findByOrderByCheckupDateAscDoctorsAscNumberAsc();
+        model.addAttribute("registrations", registrations);
+
+        return "/registrations/index";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        /*Registration List*/
+        List<Registration> registrations = registrationRepository.findByOrderByCheckupDateAscDoctorsAscNumberAsc();
+        model.addAttribute("registrations", registrations);
+        return "registrations/list-registration :: registrationList";
+    }
+
+    @GetMapping("/list/{keyword}")
+    public String list(@PathVariable("keyword") String keyword, Model model){
+        /*Registration List*/
+        List<Registration> registrations = registrationRepository.findRegistration(keyword);
+        model.addAttribute("registrations", registrations);
+        return "registrations/list-registration :: registrationList";
     }
 
     @PostMapping("/add")
     public String saveRegistration(Registration registration, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "registrations/add-registration";
+            return "registrations/data-registration";
         }
+        Integer number = 0;
+
+        Integer check = registrationRepository.last_number(registration.getCheckupDate(), registration.getDoctors().getId());
+        if(check==null){
+            number = 1;
+        } else {
+            number = check + 1;
+        }
+
+        registration.setNumber(number);
         registrationRepository.save(registration);
-        return "redirect:/registrations";
+        return "registrations/data-registration";
+    }
+
+    @GetMapping("/data")
+    public ModelAndView data(){
+        ModelAndView mav = new ModelAndView("registrations/data-registration");
+        Registration registration = registrationRepository.findTopByOrderByIdDesc();
+        mav.addObject(registration);
+        return mav;
     }
 
     @GetMapping("/delete/{id}")

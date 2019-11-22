@@ -63,16 +63,16 @@
                 <div class="form-row">
                     <div class="form-group col-sm-6">
                         <label>Gender<br>
-                            <input type="radio" name="gender" th:text="Male" th:value="male">
-                            <input type="radio" name="gender" th:text="Female" th:value="female">
-                            <input type="radio" name="gender" th:text="Other" th:value="other">
+                            <input type="radio" name="gender" th:text="Laki-laki" th:value="laki-laki"><br/>
+                            <input type="radio" name="gender" th:text="Perempuan" th:value="perempuan"><br/>
+                            <input type="radio" name="gender" th:text="Lainnya" th:value="lainnya">
                         </label>
                     </div>
                     <div class="form-group col-sm-6">
                         <div class="form-check form-check-inline">
                             <label>Position<br>
                                 <div th:each="p : ${positions}" class="form-check-label">
-                                    <input type="checkbox" name="positions" th:text="${p.name}" th:value="${p.id}"
+                                    <input type="checkbox" name="positions" th:text="${p.title} + ' - ' +${p.name}" th:value="${p.id}"
                                            class="form-check-input">
                                 </div>
                             </label>

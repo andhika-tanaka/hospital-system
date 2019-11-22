@@ -24,11 +24,24 @@ public class ClinicController {
     ClinicRepository clinicRepository;
 
     @GetMapping
-    public ModelAndView list(){
-        ModelAndView mav = new ModelAndView("clinics/list-clinic");
+    public String index(Model model){
         List<Clinic> clinics = clinicRepository.findAll();
-        mav.addObject("clinics", clinics);
-        return mav;
+        model.addAttribute("clinics", clinics);
+        return "clinics/index";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        List<Clinic> clinics = clinicRepository.findAll();
+        model.addAttribute("clinics", clinics);
+        return "clinics/list-clinics :: clinicList";
+    }
+
+    @GetMapping("/list/{keyword}")
+    public String list(@PathVariable("keyword") String keyword,Model model){
+        List<Clinic> clinics = clinicRepository.findAll();
+        model.addAttribute("clinics", clinics);
+        return "clinics/list-clinics :: clinicList";
     }
 
     @GetMapping("/add")

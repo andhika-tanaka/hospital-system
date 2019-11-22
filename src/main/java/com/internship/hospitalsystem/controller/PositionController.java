@@ -7,9 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -19,21 +17,29 @@ public class PositionController {
     @Autowired
     PositionRepository positionRepository;
 
-    @RequestMapping
-    public ModelAndView list(@RequestParam(name = "key", required = false) String keyword){
-        ModelAndView mav = new ModelAndView("positions/list-position");
-        if (keyword == null){
-            List<Position> positions = positionRepository.findAll();
-            mav.addObject("positions", positions);
-        } else {
-            List<Position> positions = positionRepository.findPosition(keyword);
-            mav.addObject("positions", positions);
-        }
-        return mav;
+    @GetMapping
+    public String index(Model model){
+        List<Position> positions = positionRepository.findAll();
+        model.addAttribute("positions", positions);
+        return "positions/index";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        List<Position> positions = positionRepository.findAll();
+        model.addAttribute("positions", positions);
+        return "positions/list-position :: positionList";
+    }
+
+    @GetMapping("/list/{keyword}")
+    public String list(@PathVariable("keyword") String keyword, Model model){
+        List<Position> positions = positionRepository.findPosition(keyword);
+        model.addAttribute("positions", positions);
+        return "positions/list-position :: positionList";
     }
 
     @GetMapping("/add")
-    public String showPositionForm(Position position) {
+    public String showPositionForm() {
         return "positions/add-position";
     }
 

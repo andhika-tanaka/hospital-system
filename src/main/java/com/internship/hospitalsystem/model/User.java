@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,7 +18,7 @@ public class User {
 
     private String lastName;
 
-    private Date dob;
+    private String dob;
 
     private String idNumber;
 

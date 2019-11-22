@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Informasi Rumah Sakit</title>
+    <link rel='stylesheet' type='text/css' media='screen' href='../static/assets/main.css'
+          th:href="@{/assets/main.css}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!--Header-->
+<div id="header" th:replace="fragments/header :: header"></div>
+
+<!--Navbar-->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div id="main-page" class="container-fluid text-center">
+    <!--Content-->
+    <div id="main" class="col d-flex align-items-center">
+        <div id="includedContent" class="container fill">
+            <div class="row text-center content-border">
+                <!--Add Modal-->
+                <div class="col-sm-6">
+                    <button type="button" id="btn-add" class="btn btn-primary" data-toggle="modal"
+                            data-target="#addModal"><i
+                            class="fa fa-plus"></i>&nbsp;TAMBAH
+                    </button>
+                </div>
+                <!--Search Bar-->
+                <div class="col-sm-6">
+                    <div class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                               id="searchKeyword" name="searchKeyword" onchange="retrieveList()">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchButton"
+                                name="searchButton" onclick="retrieveList()"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!--Table-->
+            <div th:replace="users/list-user :: userList"></div>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<div th:replace="fragments/footer :: footer"></div>
+
+<!-- Form Add -->
+<div class="modal" id="addModal"></div>
+
+<!-- Form Add -->
+<div class="modal" id="editModal"></div>
+
+<script>
+    $('#btn-add').click(function () {
+        $("#addModal").load("/users/add");
+    });
+
+    function retrieveList(){
+        var url = '/users/list';
+
+        if($('#searchKeyword').val()!= ''){
+            url = url + '/' + $('#searchKeyword').val();
+        }
+
+        $('#resultList').load(url);
+    }
+
+    function edit(id) {
+        var url = '/users/edit/' + id;
+        $("#editModal").load(url);
+    }
+</script>
+</body>
+</html>

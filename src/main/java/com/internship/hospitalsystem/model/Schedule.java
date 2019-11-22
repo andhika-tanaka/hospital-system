@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 public class Schedule {
 
     public static enum days{
-        SUNDAY("Sunday"),
-        MONDAY("Monday"),
-        TUESDAY("Tuesday"),
-        WEDNESDAY("Wednesday"),
-        THURSDAY("Thursday"),
-        FRIDAY("Friday"),
-        SATURDAY("Saturday");
+        minggu("Minggu"),
+        senin("Senin"),
+        selasa("Selasa"),
+        rabu("Rabu"),
+        kamis("Kamis"),
+        jumat("Jumat"),
+        sabtu("Sabtu");
 
         private final String displayValue;
 
