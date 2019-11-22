@@ -20,7 +20,13 @@
     <!--Content-->
     <div id="main" class="col d-flex align-items-center">
         <div id="includedContent" class="container fill">
-            <h1>WELCOME!</h1>
+
+            <div class="starter-template">
+                <h1>403 - Access is denied</h1>
+                <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
+                    you do not have permission to access this page.</div>
+            </div>
+
         </div>
     </div>
 </div>

@@ -1,107 +1,71 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sistem Informasi Rumah Sakit</title>
-    <link rel='stylesheet' type='text/css' media='screen' href='../static/assets/main.css'
-          th:href="@{/assets/main.css}">
+<form action="#" th:action="@{/schedules/edit/{id}(id=${schedule.id})}" th:object="${schedule}" method="post">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title w-100">Form Tambah Klinik</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
-<body>
-<!--Header-->
-<div th:replace="fragment :: header"></div>
+            <!-- Modal body -->
+            <div class="modal-body text-left">
 
-<!--Navbar-->
-<div th:replace="fragment :: navbar"></div>
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label>User<br>
+                            <select name="users" class="form-control">
+                                <option th:each="s : ${users}" th:value="${s.id}"
+                                        th:text="${s.firstName} + ' ' + ${s.lastName}" th:field="*{users}"></option>
+                            </select>
+                        </label>
+                    </div>
 
-<div id="main-page" class="container-fluid d-flex align-items-center text-center">
-    <!--Content-->
-    <div class="col-sm-4"></div>
-    <div id="main" class="col-sm-4 d-flex align-items-center text-center">
-        <div id="includedContent" class="container fill">
-            <form action="#" th:action="@{/schedules/edit/{id}(id=${schedule.id})}" th:object="${schedule}"
-                  method="post">
-                <div class="card">
-                    <div class="card-body">
-
-                        <!-- Modal Header -->
-                        <div class="card-title">
-                            <h4 class="modal-title w-100 text-center">Form Ubah Data Posisi</h4>
-                        </div>
-
-                        <!-- Card body -->
-                        <div class="card-text">
-                            <div class="text-left">
-
-                                <div class="form-row">
-                                    <div class="form-group col-sm-6">
-                                        <label>User<br>
-                                            <select name="users" class="form-control">
-                                                <option th:each="s : ${users}" th:value="${s.id}" th:text="${s.firstName} + ' ' + ${s.lastName}"></option>
-                                            </select>
-                                        </label>
-                                    </div>
-
-                                    <div class="form-group col-sm-6">
-                                        <label>Klinik<br>
-                                            <select name="clinics" class="form-control">
-                                                <option th:each="c : ${clinics}" th:value="${c.id}"
-                                                        th:text="${c.number} + ' - ' + ${c.name}"></option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-sm-6">
-                                        <label>Days<br>
-                                            <select name="days" class="form-control">
-                                                <option th:each="d : ${T(com.internship.hospitalsystem.model.Schedule.days).values()}"
-                                                        th:value="${d}" th:text="${d.displayValue}"></option>
-                                            </select>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-sm-6">
-                                        <label for="startHour">Mulai Praktek</label>
-                                        <input type="time" th:field="*{startHour}" id="startHour" class="form-control">
-                                    </div>
-
-                                    <div class="form-group col-sm-6">
-                                        <label for="finishHour">Selesai Praktek</label>
-                                        <input type="time" th:field="*{finishHour}" id="finishHour" class="form-control">
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="fee">Biaya</label>
-                                    <input type="number" th:field="*{fee}" id="fee" placeholder="Insert Fee" class="form-control">
-                                    <span th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></span>
-                                </div>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <a class="btn btn-danger" th:href="@{/positions}">Close</a>
-                        </div>
+                    <div class="form-group col-sm-6">
+                        <label>Klinik<br>
+                            <select name="clinics" class="form-control">
+                                <option th:each="c : ${clinics}" th:value="${c.id}"
+                                        th:text="${c.number} + ' - ' + ${c.name}" th:field="*{clinics}"></option>
+                            </select>
+                        </label>
                     </div>
                 </div>
-            </form>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label>Days<br>
+                            <select name="days" class="form-control">
+                                <option th:each="d : ${T(com.internship.hospitalsystem.model.Schedule.days).values()}"
+                                        th:value="${d}" th:text="${d.displayValue}" th:field="*{days}"></option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="startHour">Mulai Praktek</label>
+                        <input type="time" th:field="*{startHour}" id="startHour" class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label for="finishHour">Selesai Praktek</label>
+                        <input type="time" th:field="*{finishHour}" id="finishHour" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fee">Biaya</label>
+                    <input type="number" th:field="*{fee}" id="fee" placeholder="Insert Fee" class="form-control">
+                    <span th:if="${#fields.hasErrors('fee')}" th:errors="*{fee}"></span>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
-<!--Footer-->
-<div th:replace="fragment :: footer"></div>
-</body>
-</html>
+</form>

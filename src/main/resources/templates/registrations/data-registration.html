@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sistem Informasi Rumah Sakit</title>
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+<body>
+<!--Header-->
+<div th:replace="fragment :: header"></div>
+
+<!--Navbar-->
+<div th:replace="fragment :: navbar"></div>
+
+<div id="main-page" class="container-fluid d-flex align-items-center text-center">
+    <!--Content-->
+    <div class="col-sm-4"></div>
+    <div id="main" class="col-sm-4 d-flex align-items-center text-center">
+        <div id="includedContent" class="container fill">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- Card Header -->
+                    <div class="card-title">
+                        <h4 class="modal-title w-100 text-center">Detail Pendaftaran</h4>
+                    </div>
+
+                    <!-- Card body -->
+                    <div class="card-text" th:each="r : ${registration}">
+                        <h3>Selamat Anda Mendapatkan Nomor Urut</h3>
+                        <h1 th:text="${r.number}"></h1>
+                        <h3>Tanggal Kunjungan</h3>
+                        <h3 th:text="${r.checkupDate}"></h3>
+                        <h4 th:text="'Pasien : ' + ${r.patients.firstName} +' '+${r.patients.lastName}"></h4>
+                        <h4 th:text="'Dokter : ' + ${r.doctors.firstName} +' '+${r.doctors.lastName}"></h4>
+                        <a class="btn btn-primary" th:href="@{/registrations/}">Kembali</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<div th:replace="fragment :: footer"></div>
+</body>
+</html>

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -29,11 +28,24 @@ public class ScheduleController {
     ClinicRepository clinicRepository;
 
     @GetMapping
-    public ModelAndView list(){
-        ModelAndView mav = new ModelAndView("schedules/list-schedule");
+    public String index(Model model){
         List<Schedule> schedules = scheduleRepository.findAll();
-        mav.addObject("schedules", schedules);
-        return mav;
+        model.addAttribute("schedules", schedules);
+        return "schedules/index";
+    }
+
+    @GetMapping("/list")
+    public String list(Model model){
+        List<Schedule> schedules = scheduleRepository.findAll();
+        model.addAttribute("schedules", schedules);
+        return "schedules/list-schedule :: scheduleList";
+    }
+
+    @GetMapping("/list/{keyword}")
+    public String list(@PathVariable("keyword") String keyword,Model model){
+        List<Schedule> schedules = scheduleRepository.findSchedule(keyword);
+        model.addAttribute("schedules", schedules);
+        return "schedules/list-schedule :: scheduleList";
     }
 
     @GetMapping("/add")
