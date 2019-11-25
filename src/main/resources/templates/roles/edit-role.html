@@ -1,4 +1,4 @@
-<form action="#" th:action="@{/positions/edit/{id}(id=${position.id})}" th:object="${position}" method="post">
+<form action="#" th:action="@{/roles/edit/{id}(id=${role.id})}" th:object="${role}" method="post">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -15,13 +15,16 @@
                 <div class="form-group">
                     <label>Posisi<br>
                         <label class="form-check-label">
-                            <input type="radio" name="title" th:value="pegawai" th:field="*{title}"> Pegawai
+                            <input type="radio" name="title" th:value="ADMIN" th:field="*{title}"> Pegawai
                         </label>
                         <label class="form-check-label">
-                            <input type="radio" name="title" th:value="dokter" th:field="*{title}"> Dokter
+                            <input type="radio" name="title" th:value="PEGAWAI" th:field="*{title}"> Pegawai
                         </label>
                         <label class="form-check-label">
-                            <input type="radio" name="title" th:value="pasien" th:field="*{title}"> Pasien
+                            <input type="radio" name="title" th:value="DOKTER" th:field="*{title}"> Dokter
+                        </label>
+                        <label  class="form-check-label">
+                            <input type="radio" name="title" th:value="PASIEN" th:field="*{title}"> Pasien
                         </label>
                     </label>
                 </div>

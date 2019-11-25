@@ -1,4 +1,4 @@
-<div class="row text-center table-responsive" th:fragment="positionList" id="resultList">
+<div class="row text-center table-responsive" th:fragment="roleList" id="resultList">
     <table class="table">
         <thead>
         <th scope="col">Posisi</th>
@@ -7,7 +7,7 @@
         </thead>
 
         <tbody>
-        <tr scope="row" th:each="p : ${positions}">
+        <tr scope="row" th:each="p : ${roles}">
             <td th:text="${#strings.capitalize(p.title)}">Posisi</td>
             <td th:text="${p.name}">Detail Posisi</td>
             <td>
@@ -40,7 +40,7 @@
                             <!--Modal Footer-->
                             <div class="modal-footer">
                                 <a type="button" class="btn btn-primary"
-                                   th:href="@{/positions/delete/{id}(id=${p.id})}"><i
+                                   th:href="@{/roles/delete/{id}(id=${p.id})}"><i
                                         class="fa fa-check"></i>&nbsp;Yes</a>
                                 <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">
                                     <i class="fa fa-times"></i>&nbsp;Close

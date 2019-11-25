@@ -18,7 +18,7 @@
         <div sec:authorize="hasRole('ROLE_ADMIN')">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/positions/}">POSISI</a>
+                    <a class="nav-link" th:href="@{/roles/}">POSISI</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/users/}">USER</a>
@@ -29,14 +29,20 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/schedules/}">JADWAL</a>
                 </li>
+            </ul>
+        </div>
+
+        <div sec:authorize="hasRole('PEGAWAI')">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/users/}">USER</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/registrations/}">REGISTRASI</a>
                 </li>
             </ul>
         </div>
-
     </div>
-
     <div sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
                 Roles: <span sec:authentication="principal.authorities"></span> |

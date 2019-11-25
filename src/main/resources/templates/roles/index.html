@@ -36,7 +36,7 @@
             </div>
 
             <!--Table-->
-            <div th:replace="positions/list-position"></div>
+            <div th:replace="roles/list-role"></div>
         </div>
     </div>
 </div>
@@ -52,11 +52,11 @@
 
 <script>
     $('#btn-add').click(function () {
-        $("#addModal").load("/positions/add");
+        $("#addModal").load("/roles/add");
     });
 
     function retrieveList(){
-        var url = '/positions/list';
+        var url = '/roles/list';
 
         if($('#searchKeyword').val()!= ''){
             url = url + '/' + $('#searchKeyword').val();
@@ -66,7 +66,7 @@
     }
 
     function edit(id) {
-        var url = '/positions/edit/' + id;
+        var url = '/roles/edit/' + id;
         $("#editModal").load(url);
     }
 </script>

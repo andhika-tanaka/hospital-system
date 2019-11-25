@@ -1,4 +1,4 @@
-<form action="#" th:action="@{@{/users/edit/{id}(id=${user.id})}}" th:object="${user}" method="post">
+<form action="#" th:action="@{/users/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -22,6 +22,21 @@
                         <input type="text" th:field="*{lastName}" id="lastName" placeholder="Last Name"
                                class="form-control">
                         <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-sm-6">
+                        <label for="email">Email</label>
+                        <input type="email" th:field="*{email}" id="email" placeholder="example@mail.com"
+                               class="form-control">
+                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="password">Password</label>
+                        <input type="password" th:field="*{password}" id="password" placeholder="Password"
+                               class="form-control">
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                     </div>
                 </div>
 
@@ -70,12 +85,31 @@
                     </div>
                     <div class="form-group col-sm-6">
                         <div class="form-check form-check-inline">
-                            <label>Position<br>
-                                <div th:each="p : ${positions}" class="form-check-label">
-                                    <input type="checkbox" name="positions" th:text="${p.title} + ' - ' +${p.name}" th:value="${p.id}"
-                                           th:field="*{positions}" class="form-check-input">
+
+                            <div sec:authorize="hasRole('ROLE_ADMIN')">
+                                <div class="form-check form-check-inline">
+                                    <label>Role<br>
+                                        <div th:each="p : ${users}" class="form-check-label">
+                                            <input type="checkbox" name="roles" th:text="${p.title} + ' - ' +${p.name}"
+                                                   th:value="${p.id}"
+                                                   class="form-check-input">
+                                        </div>
+                                    </label>
                                 </div>
-                            </label>
+                            </div>
+
+                            <div sec:authorize="hasRole('ROLE_PEGAWAI')">
+                                <div class="form-check form-check-inline">
+                                    <label>Role<br>
+                                        <div th:each="p : ${patients}" class="form-check-label">
+                                            <input type="checkbox" name="roles" th:text="${p.title} + ' - ' +${p.name}"
+                                                   th:value="${p.id}"
+                                                   class="form-check-input">
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

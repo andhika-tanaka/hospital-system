@@ -3,8 +3,6 @@ package com.internship.hospitalsystem.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,6 +16,10 @@ public class User {
 
     private String lastName;
 
+    private String email;
+
+    private String password;
+
     private String dob;
 
     private String idNumber;
@@ -30,13 +32,12 @@ public class User {
 
     private String phone2;
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
+    private Integer active;
+
+    @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "position_id")
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Position> positions = new HashSet<>();
+    private Set<Role> roles;
 }

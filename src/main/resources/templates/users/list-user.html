@@ -6,9 +6,10 @@
         <th scope="col">Nama</th>
         <th scope="col">Nomor ID</th>
         <th scope="col">TTL</th>
-        <th scope="col">Jenis Kelamin</th>
+        <th scope="col">Email</th>
         <th scope="col">Alamat</th>
         <th scope="col">Nomor Telepon</th>
+        <th scope="col">Detail</th>
         <th scope="col-sm-4">Aksi</th>
         </thead>
 
@@ -20,6 +21,12 @@
             <td th:text="${#strings.capitalize(u.gender)}">Jenis Kelamin</td>
             <td th:text="${#strings.capitalize(u.address)}">Alamat</td>
             <td th:utext="${u.phone1} + ' <br /> ' + ${u.phone2}">Telp</td>
+            <td>
+                <!--Edit Button-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detailModal"
+                        th:onclick="'detail(\''+ ${u.id} + '\');'">Detail</button>
+
+            </td>
             <td>
 
                 <!--Edit Button-->

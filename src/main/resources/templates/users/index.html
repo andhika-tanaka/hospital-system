@@ -50,7 +50,10 @@
 <!-- Form Add -->
 <div class="modal" id="addModal"></div>
 
-<!-- Form Add -->
+<!-- Form Detail -->
+<div class="modal" id="detailModal"></div>
+
+<!-- Form Edit -->
 <div class="modal" id="editModal"></div>
 
 <script>
@@ -71,6 +74,11 @@
     function edit(id) {
         var url = '/users/edit/' + id;
         $("#editModal").load(url);
+    }
+
+    function detail(id) {
+        var url = '/users/detail/' + id;
+        $("#detailModal").load(url);
     }
 </script>
 </body>
