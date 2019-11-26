@@ -85,33 +85,18 @@
                         </label>
                     </div>
                     <div class="form-group col-sm-6">
-
-                        <div sec:authorize="hasRole('ROLE_ADMIN')">
-                            <div class="form-check form-check-inline">
-                                <label>Role<br>
-                                    <div th:each="p : ${staffs}" class="form-check-label">
-                                        <input type="checkbox" name="roles" th:text="${p.title} + ' - ' +${p.name}"
-                                               th:value="${p.id}"
-                                               class="form-check-input">
-                                    </div>
-                                </label>
-                            </div>
+                        <div class="form-check form-check-inline">
+                            <label>Role<br>
+                                <div th:each="r : ${roles}" class="form-check-label">
+                                    <input type="checkbox" name="roles" th:text="${r.title} + ' - ' +${r.name}"
+                                           th:value="${r.id}" th:field="*{roles}"
+                                           class="form-check-input">
+                                </div>
+                            </label>
                         </div>
-
-                        <div sec:authorize="hasRole('ROLE_PEGAWAI')">
-                            <div class="form-check form-check-inline">
-                                <label>Role<br>
-                                    <div th:each="p : ${patients}" class="form-check-label">
-                                        <input type="checkbox" name="roles" th:text="${p.title} + ' - ' +${p.name}"
-                                               th:value="${p.id}"
-                                               class="form-check-input">
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
+
             </div>
 
             <!-- Modal footer -->

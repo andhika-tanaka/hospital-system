@@ -10,12 +10,12 @@ import java.util.List;
 @Repository
 public interface RoleRepository extends JpaRepository <Role, Long> {
 
-    @Query("SELECT p FROM Role p WHERE p.role LIKE %:keywords% OR p.name LIKE %:keywords%")
+    @Query("SELECT p FROM Role p WHERE p.title LIKE %:keywords% OR p.name LIKE %:keywords%")
     List<Role> findRole(String keywords);
 
-    @Query("SELECT p FROM Role p WHERE NOT (p.title='PASIEN')")
+    @Query("SELECT p FROM Role p WHERE NOT p.title='PASIEN'")
     List<Role> findStaffs();
 
-    @Query("SELECT p FROM Role p WHERE p.role='PASIEN'")
+    @Query("SELECT p FROM Role p WHERE p.title='PASIEN'")
     List<Role> findPatients();
 }

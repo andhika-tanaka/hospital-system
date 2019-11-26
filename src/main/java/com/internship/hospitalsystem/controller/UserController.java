@@ -5,12 +5,15 @@ import com.internship.hospitalsystem.model.User;
 import com.internship.hospitalsystem.repository.RoleRepository;
 import com.internship.hospitalsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,36 +29,55 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    private List<Role> roles() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String roleAuth = authentication.getAuthorities().toString();
+        List<Role> roles = new ArrayList<>();
+        if (roleAuth.contains("ADMIN")) {
+            roles = roleRepository.findStaffs();
+        } else if (roleAuth.contains("PEGAWAI")) {
+            roles = roleRepository.findPatients();
+        }
+        return roles;
+    }
+
+    private List<User> users() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String roleAuth = authentication.getAuthorities().toString();
+        List<User> users = new ArrayList<>();
+        if (roleAuth.contains("ADMIN")) {
+            users = userRepository.findStaffs();
+        } else if (roleAuth.contains("PEGAWAI")) {
+            users = userRepository.findPatients();
+        } else {
+            users = userRepository.findAll();
+        }
+        return users;
+    }
+
     @GetMapping
-    public String index(Model model){
-        List<User> users = userRepository.findAll();
+    public String index(Model model) {
+        List<User> users = users();
         model.addAttribute("users", users);
         return "users/index";
     }
 
     @GetMapping("/list")
-    public String list(Model model){
-        List<User> users = userRepository.findAll();
-        model.addAttribute("users", users);
-        return "users/list-user :: userList";
-    }
-
-    @GetMapping("/list/{keyword}")
-    public String list(@PathVariable("keyword") String keywords, Model model){
-        List<User> users = userRepository.findUser(keywords);
+    public String list(@RequestParam(value = "keyword", required = false) String keywords, Model model) {
+        List<User> users;
+        if (keywords != null) {
+            users = userRepository.searchStaffs(keywords);
+        } else {
+            users = users();
+        }
         model.addAttribute("users", users);
         return "users/list-user :: userList";
     }
 
     @GetMapping("/add")
-    public String showUserForm(Model model)
-    {
-        List<Role> staffs = roleRepository.findStaffs();
-        model.addAttribute("staffs", staffs);
-
-        List<Role> patients = roleRepository.findPatients();
-        model.addAttribute("patients", patients);
-
+    public String showUserForm(Model model) {
+        List<Role> roles = roles();
+        model.addAttribute("roles", roles);
         User user = new User();
         model.addAttribute(user);
         return "users/add-user";
@@ -73,17 +95,18 @@ public class UserController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditUserForm(@PathVariable("id") Long id, Model model){
+    public String showEditUserForm(@PathVariable("id") Long id, Model model) {
         User user = userRepository.findById(id).
                 orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        List<Role> roles = roleRepository.findAll();
         model.addAttribute("user", user);
+
+        List<Role> roles = roles();
         model.addAttribute("roles", roles);
         return "users/edit-user";
     }
 
     @PostMapping("/edit/{id}")
-    public String editUser(@PathVariable("id") Long id, User user, BindingResult bindingResult){
+    public String editUser(@PathVariable("id") Long id, User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             user.setId(id);
             return "users/edit-user";
@@ -95,17 +118,15 @@ public class UserController {
     }
 
     @GetMapping("/detail/{id}")
-    public String showDetailForm(@PathVariable("id") Long id, Model model){
+    public String showDetailForm(@PathVariable("id") Long id, Model model) {
         User user = userRepository.findById(id).
                 orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        List<Role> roles = roleRepository.findAll();
         model.addAttribute("user", user);
-        model.addAttribute("roles", roles);
         return "users/detail-user";
     }
 
     @GetMapping(value = "/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id){
+    public String deleteUser(@PathVariable("id") Long id) {
         userRepository.deleteById(id);
         return "redirect:/users";
     }

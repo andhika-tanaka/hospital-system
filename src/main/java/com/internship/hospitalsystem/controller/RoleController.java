@@ -25,15 +25,13 @@ public class RoleController {
     }
 
     @GetMapping("/list")
-    public String list(Model model){
-        List<Role> roles = roleRepository.findAll();
-        model.addAttribute("roles", roles);
-        return "roles/list-role :: roleList";
-    }
-
-    @GetMapping("/list/{keyword}")
-    public String list(@PathVariable("keyword") String keyword, Model model){
-        List<Role> roles = roleRepository.findRole(keyword);
+    public String list(@RequestParam(value = "keyword", required = false) String keyword, Model model){
+        List<Role> roles;
+        if(keyword != null){
+             roles = roleRepository.findRole(keyword);
+        } else {
+            roles = roleRepository.findAll();
+        }
         model.addAttribute("roles", roles);
         return "roles/list-role :: roleList";
     }

@@ -28,7 +28,7 @@
                 <div class="col-sm-6">
                     <div class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
-                               id="searchKeyword" name="searchKeyword" onchange="retrieveList()">
+                               id="searchKeyword" name="searchKeyword" oninput="retrieveList()">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="button" id="searchButton"
                                 name="searchButton" onclick="retrieveList()"><i class="fa fa-search"></i></button>
                     </div>
@@ -59,7 +59,7 @@
         var url = '/roles/list';
 
         if($('#searchKeyword').val()!= ''){
-            url = url + '/' + $('#searchKeyword').val();
+            url = url + '?keyword=' + $('#searchKeyword').val();
         }
 
         $('#resultList').load(url);

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,15 +36,13 @@ public class ScheduleController {
     }
 
     @GetMapping("/list")
-    public String list(Model model){
-        List<Schedule> schedules = scheduleRepository.findAll();
-        model.addAttribute("schedules", schedules);
-        return "schedules/list-schedule :: scheduleList";
-    }
-
-    @GetMapping("/list/{keyword}")
-    public String list(@PathVariable("keyword") String keyword,Model model){
-        List<Schedule> schedules = scheduleRepository.findSchedule(keyword);
+    public String list(@RequestParam(value = "keyword", required = false) String keyword, Model model){
+        List<Schedule> schedules;
+        if(keyword != null){
+            schedules = scheduleRepository.findSchedule(keyword);
+        } else {
+            schedules = scheduleRepository.findAll();
+        }
         model.addAttribute("schedules", schedules);
         return "schedules/list-schedule :: scheduleList";
     }

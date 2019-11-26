@@ -2,30 +2,23 @@ package com.internship.hospitalsystem.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
 
     @GetMapping("/")
-    public String home1() {
-        return "home";
-    }
-
-    @GetMapping("/home")
     public String home() {
+        return "index";
+    }
+
+    @GetMapping("/system")
+    public String systemHome() {
         return "home";
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/welcome")
     public String admin() {
-        return "admin";
-    }
-
-    @GetMapping("/user")
-    public String user() {
-        return "user";
+        return "welcome";
     }
 
     @GetMapping("/about")

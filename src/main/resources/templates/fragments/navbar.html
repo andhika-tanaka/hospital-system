@@ -11,11 +11,17 @@
 
 <!--Navbar-->
 <nav class="navbar navbar-expand-lg navbar-light bg-lightblue" th:fragment="navbar">
-    <a class="navbar-brand" th:href="@{/}">Home</a>
+    <div sec:authorize="isAnonymous()">
+        <a class="navbar-brand" th:href="@{/}">Home</a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()">
+        <a class="navbar-brand" th:href="@{/welcome}">Home</a>
+    </div>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div sec:authorize="hasRole('ADMIN')">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/roles/}">POSISI</a>
@@ -35,7 +41,7 @@
         <div sec:authorize="hasRole('PEGAWAI')">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/users/}">USER</a>
+                    <a class="nav-link" th:href="@{/users/}">PASIEN</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/registrations/}">REGISTRASI</a>
@@ -44,10 +50,10 @@
         </div>
     </div>
     <div sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
-                Roles: <span sec:authentication="principal.authorities"></span> |
-                <a th:href="@{/logout}">Sign Out</a>
-            </div>
+        | Logged user: <span sec:authentication="name"></span> |
+        Roles: <span sec:authentication="principal.authorities"></span> |
+        <a th:href="@{/logout}">Sign Out</a>
+    </div>
 </nav>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"  xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,11 +21,11 @@
     <div id="main" class="col d-flex align-items-center">
         <div id="includedContent" class="container fill">
 
-            <h1>User page (Spring Security protected)</h1>
+            <h1>WELCOME PAGE (Spring Security protected)</h1>
 
             <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
             <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out"/>
+                <input type="submit" class="btn btn-danger" value="Sign Out"/>
             </form>
 
         </div>

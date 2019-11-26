@@ -20,10 +20,36 @@
     <!--Content-->
     <div id="main" class="col d-flex align-items-center">
         <div id="includedContent" class="container fill">
-            <h1>Spring Boot Web Thymeleaf + Spring Security</h1>
-            <h2>1. Visit <a th:href="@{/admin}">Admin page (Spring Security protected, Need Admin Role)</a></h2>
-            <h2>2. Visit <a th:href="@{/user}">User page (Spring Security protected, Need User Role)</a></h2>
-            <h2>3. Visit <a th:href="@{/about}">Normal page</a></h2>
+            <div class="row">
+
+                <div class="card col align-items-center">
+                    <img class="card-img-top" th:src="@{/img/web.png}" lt="Card image" style="width:50%">
+                    <div class="card-body">
+                        <h4 class="card-title">ADMIN</h4>
+                        <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                        <a th:href="@{/welcome}" class="btn btn-primary">Admin</a>
+                    </div>
+                </div>
+
+                <div class="card col align-items-center">
+                    <img class="card-img-top" th:src="@{/img/nurse.png}" alt="Card image" style="width:50%">
+                    <div class="card-body">
+                        <h4 class="card-title">PEGAWAI</h4>
+                        <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                        <a th:href="@{/welcome}" class="btn btn-primary">Pegawai</a>
+                    </div>
+                </div>
+
+                <div class="card col align-items-center">
+                    <img class="card-img-top" th:src="@{/img/doctor.png}" alt="Card image" style="width:50%">
+                    <div class="card-body">
+                        <h4 class="card-title">DOKTER</h4>
+                        <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+                        <a th:href="@{/welcome}" class="btn btn-primary">Dokter</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,7 +25,7 @@ public class RegistrationController {
     UserRepository userRepository;
 
     @GetMapping
-    public String index(Model model){
+    public String index(Model model) {
         /*New Object to Add New Data to Table*/
         Registration registration = new Registration();
         model.addAttribute(registration);
@@ -45,17 +46,13 @@ public class RegistrationController {
     }
 
     @GetMapping("/list")
-    public String list(Model model){
-        /*Registration List*/
-        List<Registration> registrations = registrationRepository.findByOrderByCheckupDateAscDoctorsAscNumberAsc();
-        model.addAttribute("registrations", registrations);
-        return "registrations/list-registration :: registrationList";
-    }
-
-    @GetMapping("/list/{keyword}")
-    public String list(@PathVariable("keyword") String keyword, Model model){
-        /*Registration List*/
-        List<Registration> registrations = registrationRepository.findRegistration(keyword);
+    public String list(@RequestParam(value = "keyword") String keyword, Model model) {
+        List<Registration> registrations;
+        if (keyword != null) {
+            registrations = registrationRepository.findRegistration(keyword);
+        } else {
+            registrations = registrationRepository.findByOrderByCheckupDateAscDoctorsAscNumberAsc();
+        }
         model.addAttribute("registrations", registrations);
         return "registrations/list-registration :: registrationList";
     }
@@ -68,7 +65,7 @@ public class RegistrationController {
         Integer number = 0;
 
         Integer check = registrationRepository.last_number(registration.getCheckupDate(), registration.getDoctors().getId());
-        if(check==null){
+        if (check == null) {
             number = 1;
         } else {
             number = check + 1;
@@ -80,7 +77,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/data")
-    public ModelAndView data(){
+    public ModelAndView data() {
         ModelAndView mav = new ModelAndView("registrations/data-registration");
         Registration registration = registrationRepository.findTopByOrderByIdDesc();
         mav.addObject(registration);
@@ -88,7 +85,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteRegistration(@PathVariable("id") Long id){
+    public String deleteRegistration(@PathVariable("id") Long id) {
         registrationRepository.deleteById(id);
         return "redirect:/registrations";
     }
